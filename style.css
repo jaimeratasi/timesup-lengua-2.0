@@ -1,1 +1,189 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:linear-gradient(135deg,#1d3557,#457b9d);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+main{
+    width:100%;
+    max-width:700px;
+}
+
+header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+header h1{
+    font-size:3rem;
+    margin-bottom:8px;
+}
+
+header p{
+    opacity:.8;
+    font-size:1.2rem;
+}
+
+section{
+    background:white;
+    color:#222;
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.hidden{
+    display:none;
+}
+
+#top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+#timer{
+    font-size:2.5rem;
+    font-weight:bold;
+    color:#d62828;
+}
+
+#counter{
+    font-size:1.2rem;
+    font-weight:bold;
+}
+
+#card{
+    background:#f8f9fa;
+    border:3px dashed #457b9d;
+    border-radius:18px;
+    min-height:220px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    font-size:2.3rem;
+    font-weight:700;
+
+    padding:30px;
+
+    margin-bottom:30px;
+
+    transition:.25s;
+}
+
+#buttons{
+    display:flex;
+    gap:20px;
+}
+
+button{
+
+    flex:1;
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:18px;
+
+    font-size:1.1rem;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.2s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+}
+
+#shuffleBtn{
+
+    width:100%;
+
+    background:#ffb703;
+
+}
+
+#correctBtn{
+
+    background:#2a9d8f;
+
+    color:white;
+
+}
+
+#passBtn{
+
+    background:#e76f51;
+
+    color:white;
+
+}
+
+#copyBtn{
+
+    width:100%;
+
+    margin-top:20px;
+
+    background:#457b9d;
+
+    color:white;
+
+}
+
+#newRoundBtn{
+
+    width:100%;
+
+    margin-top:15px;
+
+    background:#ffb703;
+
+}
+
+@media(max-width:700px){
+
+header h1{
+
+font-size:2.2rem;
+
+}
+
+#card{
+
+font-size:1.6rem;
+
+min-height:180px;
+
+}
+
+#buttons{
+
+flex-direction:column;
+
+}
+
+}
