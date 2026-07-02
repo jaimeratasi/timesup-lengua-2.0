@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Time's Up Lengua</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>📚 Time's Up</h1>
+
+<p>Lengua Castellana</p>
+
+</header>
+
+<main>
+
+<section id="start-screen">
+
+<h2>Nuevo juego</h2>
+
+<button id="shuffleBtn">
+
+🎲 Barajar mazo
+
+</button>
+
+</section>
+
+<section id="game-screen" class="hidden">
+
+<div id="top">
+
+<div id="timer">
+
+60
+
+</div>
+
+<div id="counter">
+
+0 / 0
+
+</div>
+
+</div>
+
+<div id="card">
+
+Pulsa "Barajar"
+
+</div>
+
+<div id="buttons">
+
+<button id="correctBtn">
+
+✅ Acierto
+
+</button>
+
+<button id="passBtn">
+
+⏭ Pasar
+
+</button>
+
+</div>
+
+</section>
+
+<section id="end-screen" class="hidden">
+
+<h2>
+
+⏰ Tiempo
+
+</h2>
+
+<p>
+
+El turno ha terminado.
+
+</p>
+
+<button id="copyBtn">
+
+🔗 Copiar enlace para el siguiente jugador
+
+</button>
+
+<button id="newRoundBtn">
+
+🔄 Nueva ronda
+
+</button>
+
+</section>
+
+</main>
+
+<script src="cards.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
