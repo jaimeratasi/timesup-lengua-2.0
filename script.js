@@ -115,8 +115,6 @@ function init(){
     cargarMazos();
 
     mostrarPantalla("welcome");
-   ui.welcomeScreen.classList.add("hidden");
-ui.joinScreen.classList.add("hidden");
 
     registrarEventos();
 
