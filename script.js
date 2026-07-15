@@ -335,14 +335,29 @@ function acierto(){
 
     game.currentTurnCorrect++;
 
-    alert("¡Bien!");
+    quitarCarta();
 
 }
 
 
 function pasar(){
 
-    alert("Pasamos");
+    quitarCarta();
+
+}
+
+
+function quitarCarta(){
+
+    const posicion = game.deck.indexOf(game.currentCard);
+
+    if(posicion !== -1){
+
+        game.deck.splice(posicion,1);
+
+    }
+
+    mostrarCarta();
 
 }
 function iniciarTemporizador(){
@@ -366,5 +381,29 @@ function iniciarTemporizador(){
         }
 
     },1000);
+
+}
+function prepararCartas(){
+
+    game.deck = [...DECKS[game.deckName].cartas];
+
+}
+
+
+function mostrarCarta(){
+
+    if(game.deck.length === 0){
+
+        ui.gameCard.textContent = "FIN";
+
+        return;
+
+    }
+
+    const indice = Math.floor(Math.random()*game.deck.length);
+
+    game.currentCard = game.deck[indice];
+
+    ui.gameCard.textContent = game.currentCard;
 
 }
