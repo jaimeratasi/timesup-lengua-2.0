@@ -1,5 +1,4 @@
-const DECKS = {
-
+export const DECKS = {
 figuras: {
 nombre: "🎭 Figuras literarias",
 cartas: [
