@@ -298,9 +298,12 @@ async function unirsePartida() {
 
 
 function iniciarPartida(){
-   
 
     mostrarPantalla("play");
+
+    prepararCartas();
+
+    mostrarCarta();
 
     iniciarTemporizador();
 
