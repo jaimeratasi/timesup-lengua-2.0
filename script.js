@@ -49,6 +49,14 @@ const ui = {
 
     homeScreen: document.getElementById("homeScreen"),
 
+   lobbyScreen: document.getElementById("lobbyScreen"),
+
+gameCodeBox: document.getElementById("gameCodeBox"),
+
+copyGameCodeBtn: document.getElementById("copyGameCodeBtn"),
+
+startGameBtn: document.getElementById("startGameBtn"),
+
     playScreen: document.getElementById("playScreen"),
 
     turnScreen: document.getElementById("turnScreen"),
@@ -140,6 +148,8 @@ function mostrarPantalla(nombre){
     ui.roundScreen.classList.add("hidden");
 
     ui.finishScreen.classList.add("hidden");
+   
+    ui.lobbyScreen.classList.add("hidden");
 
     switch(nombre){
 
@@ -172,6 +182,10 @@ function mostrarPantalla(nombre){
             ui.finishScreen.classList.remove("hidden");
 
         break;
+
+          case "lobby":
+    ui.lobbyScreen.classList.remove("hidden");
+break;
 
     }
 
@@ -213,7 +227,11 @@ async function crearPartida() {
         segundos: game.secondsPerTurn
     });
 
-    alert("Partida creada: " + gameId);
+    game.id = gameId;
+
+ui.gameCodeBox.textContent = gameId;
+
+mostrarPantalla("lobby");
 
 }
 function generarCodigo(){
