@@ -231,7 +231,9 @@ ui.studentBtn.addEventListener("click", () => {
 });
    ui.joinBtn.addEventListener("click", unirsePartida);
    ui.startGameBtn.addEventListener("click", iniciarPartida);
+ui.correctBtn.addEventListener("click", acierto);
 
+ui.passBtn.addEventListener("click", pasar);
 }
 
 
@@ -296,9 +298,47 @@ async function unirsePartida() {
 
 
 function iniciarPartida(){
+   
 
     mostrarPantalla("play");
 
     iniciarTemporizador();
+
+}
+function iniciarTemporizador(){
+
+    game.timer = game.secondsPerTurn;
+
+    ui.timer.textContent = game.timer;
+
+    game.interval = setInterval(() => {
+
+        game.timer--;
+
+        ui.timer.textContent = game.timer;
+
+        if(game.timer <= 0){
+
+            clearInterval(game.interval);
+
+            alert("Turno terminado");
+
+        }
+
+    },1000);
+
+}
+function acierto(){
+
+    game.currentTurnCorrect++;
+
+    alert("¡Bien!");
+
+}
+
+
+function pasar(){
+
+    alert("Pasamos");
 
 }
