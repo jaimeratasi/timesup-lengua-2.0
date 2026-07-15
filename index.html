@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Time's Up Lengua</title>
+<title>Palabra Maestra</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -13,152 +14,204 @@
 
 <body>
 
-<header>
+<div id="app">
 
-<h1>📚 Time's Up</h1>
+    <!-- ===================== -->
+    <!-- PANTALLA DE INICIO -->
+    <!-- ===================== -->
 
-<p>Lengua Castellana</p>
+    <section id="homeScreen" class="screen">
 
-</header>
+        <h1>📚 Palabra Maestra</h1>
 
-<main>
+        <p class="subtitle">
+            El Time's Up de Lengua
+        </p>
 
-<section id="start-screen">
+        <div class="card">
 
-<h2>Nuevo juego</h2>
+            <label>Mazo</label>
 
-<button id="shuffleBtn">
+            <select id="deckSelect"></select>
 
-🎲 Barajar mazo
+            <label>Número de cartas</label>
 
-</button>
+            <select id="cardsNumber">
+                <option>20</option>
+                <option selected>30</option>
+                <option>40</option>
+                <option>50</option>
+            </select>
 
-<hr>
+            <label>Tiempo por turno</label>
 
-<label for="deckSelect">
-Mazo
-</label>
+            <select id="roundTime">
+                <option>30</option>
+                <option>45</option>
+                <option selected>60</option>
+                <option>90</option>
+            </select>
 
-<select id="deckSelect">
-</select>
+            <label>Modo</label>
 
-<br><br>
+            <select id="gameMode">
+                <option selected>Time's Up</option>
+                <option>Entrenamiento</option>
+            </select>
 
-<label for="cardsNumber">
+            <button id="createGameBtn">
+                🎲 Crear partida
+            </button>
 
-Número de cartas
+        </div>
 
-</label>
+    </section>
 
-<select id="cardsNumber">
 
-<option value="20">20</option>
 
-<option value="30" selected>30</option>
 
-<option value="40">40</option>
 
-<option value="50">50</option>
+    <!-- ===================== -->
+    <!-- JUEGO -->
+    <!-- ===================== -->
 
-</select>
+    <section id="playScreen" class="screen hidden">
 
-<br><br>
+        <div id="topBar">
 
-<label for="roundTime">
+            <div id="roundLabel">
+                RONDA 1
+            </div>
 
-Duración del turno
+            <div id="timer">
+                60
+            </div>
 
-</label>
+        </div>
 
-<select id="roundTime">
+        <div id="remainingCards">
 
-<option value="30">30 segundos</option>
+            Quedan 30 cartas
 
-<option value="45">45 segundos</option>
+        </div>
 
-<option value="60" selected>60 segundos</option>
+        <div id="gameCard">
 
-<option value="90">90 segundos</option>
+            HIPÉRBOLE
 
-</select>
-  
-</section>
+        </div>
 
-<section id="game-screen" class="hidden">
+        <div id="gameButtons">
 
-<div id="top">
+            <button id="correctBtn">
 
-<div id="timer">
+                ✅ Acierto
 
-60
+            </button>
+
+            <button id="passBtn">
+
+                ⏭ Pasar
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+
+
+    <!-- ===================== -->
+    <!-- FIN DEL TURNO -->
+    <!-- ===================== -->
+
+    <section id="turnScreen" class="screen hidden">
+
+        <h2>
+
+            ⏰ Turno terminado
+
+        </h2>
+
+        <p>
+
+            Pasa el dispositivo al siguiente jugador.
+
+        </p>
+
+        <button id="copyBtn">
+
+            🔗 Copiar enlace
+
+        </button>
+
+        <button id="nextPlayerBtn">
+
+            ▶ Continuar
+
+        </button>
+
+    </section>
+
+
+
+
+
+    <!-- ===================== -->
+    <!-- FIN DE RONDA -->
+    <!-- ===================== -->
+
+    <section id="roundScreen" class="screen hidden">
+
+        <h2>
+
+            🎉 Ronda completada
+
+        </h2>
+
+        <p id="roundDescription">
+
+        </p>
+
+        <button id="nextRoundBtn">
+
+            Empezar siguiente ronda
+
+        </button>
+
+    </section>
+
+
+
+
+
+    <!-- ===================== -->
+    <!-- FIN DEL JUEGO -->
+    <!-- ===================== -->
+
+    <section id="finishScreen" class="screen hidden">
+
+        <h2>
+
+            🏆 Partida terminada
+
+        </h2>
+
+        <button id="restartBtn">
+
+            Nueva partida
+
+        </button>
+
+    </section>
 
 </div>
-
-<div id="counter">
-
-0 / 0
-
-</div>
-
-</div>
-
-<div id="card">
-
-Pulsa "Barajar"
-
-</div>
-
-<div id="buttons">
-
-<button id="correctBtn">
-
-✅ Acierto
-
-</button>
-
-<button id="passBtn">
-
-⏭ Pasar
-
-</button>
-
-</div>
-
-</section>
-
-<section id="end-screen" class="hidden">
-
-<h2>
-
-⏰ Tiempo
-
-</h2>
-
-<p>
-
-El turno ha terminado.
-
-</p>
-
-<button id="copyBtn">
-
-🔗 Copiar enlace para el siguiente jugador
-
-</button>
-
-<button id="newRoundBtn">
-
-🔄 Nueva ronda
-
-</button>
-
-</section>
-
-</main>
 
 <script src="cards.js"></script>
-
 <script src="script.js"></script>
 
 </body>
+
 </html>
