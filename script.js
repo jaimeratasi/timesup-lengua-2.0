@@ -357,6 +357,9 @@ function quitarCarta(){
 
     }
 
+    ui.remainingCards.textContent = 
+        "Quedan " + game.deck.length + " cartas";
+
     mostrarCarta();
 
 }
