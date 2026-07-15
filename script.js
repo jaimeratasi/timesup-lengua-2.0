@@ -230,6 +230,7 @@ ui.studentBtn.addEventListener("click", () => {
     mostrarPantalla("join");
 });
    ui.joinBtn.addEventListener("click", unirsePartida);
+   ui.startGameBtn.addEventListener("click", iniciarPartida);
 
 }
 
