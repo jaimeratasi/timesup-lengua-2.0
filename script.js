@@ -151,6 +151,8 @@ function cargarMazos(){
 ======================================================= */
 
 function mostrarPantalla(nombre){
+   ui.welcomeScreen.classList.add("hidden");
+ui.joinScreen.classList.add("hidden");
 
     ui.homeScreen.classList.add("hidden");
 
