@@ -47,7 +47,19 @@ const game = {
 
 const ui = {
 
-    homeScreen: document.getElementById("homeScreen"),
+welcomeScreen: document.getElementById("welcomeScreen"),
+
+teacherBtn: document.getElementById("teacherBtn"),
+
+studentBtn: document.getElementById("studentBtn"),
+
+joinScreen: document.getElementById("joinScreen"),
+
+joinBtn: document.getElementById("joinBtn"),
+
+joinCode: document.getElementById("joinCode"),
+   
+   homeScreen: document.getElementById("homeScreen"),
 
    lobbyScreen: document.getElementById("lobbyScreen"),
 
@@ -101,7 +113,9 @@ function init(){
 
     cargarMazos();
 
-    mostrarPantalla("home");
+    mostrarPantalla("welcome");
+   ui.welcomeScreen.classList.add("hidden");
+ui.joinScreen.classList.add("hidden");
 
     registrarEventos();
 
@@ -186,6 +200,13 @@ function mostrarPantalla(nombre){
           case "lobby":
     ui.lobbyScreen.classList.remove("hidden");
 break;
+          case "welcome":
+    ui.welcomeScreen.classList.remove("hidden");
+break;
+
+case "join":
+    ui.joinScreen.classList.remove("hidden");
+break;
 
     }
 
@@ -200,6 +221,13 @@ break;
 function registrarEventos(){
 
     ui.createGameBtn.addEventListener("click", crearPartida);
+   ui.teacherBtn.addEventListener("click", () => {
+    mostrarPantalla("home");
+});
+
+ui.studentBtn.addEventListener("click", () => {
+    mostrarPantalla("join");
+});
 
 }
 
