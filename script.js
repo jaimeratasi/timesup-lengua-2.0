@@ -302,6 +302,8 @@ function iniciarPartida(){
     mostrarPantalla("play");
 
     prepararCartas();
+   ui.remainingCards.textContent = 
+    "Quedan " + game.deck.length + " cartas";
 
     mostrarCarta();
 
