@@ -2,6 +2,12 @@
    PALABRA MAESTRA
    Motor del juego
 ======================================================= */
+import { db } from "./firebase.js";
+
+import {
+    doc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const game = {
 
@@ -189,20 +195,39 @@ function registrarEventos(){
    PARTIDA
 ======================================================= */
 
-function crearPartida(){
+async function crearPartida() {
 
     game.mode = ui.gameMode.value;
-
     game.deckName = ui.deckSelect.value;
-
     game.cardsPerGame = Number(ui.cardsNumber.value);
-
     game.secondsPerTurn = Number(ui.roundTime.value);
 
-    console.clear();
+    const gameId = generarCodigo();
 
-    console.log(game);
+    await setDoc(doc(db, "partidas", gameId), {
+        creada: new Date(),
+        ronda: 1,
+        mazo: game.deckName,
+        modo: game.mode,
+        cartas: game.cardsPerGame,
+        segundos: game.secondsPerTurn
+    });
 
-    mostrarPantalla("play");
+    alert("Partida creada: " + gameId);
+
+}
+function generarCodigo(){
+
+    const caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let codigo = "";
+
+    for(let i=0;i<8;i++){
+
+        codigo += caracteres[Math.floor(Math.random()*caracteres.length)];
+
+    }
+
+    return codigo;
 
 }
