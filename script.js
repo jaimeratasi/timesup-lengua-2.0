@@ -3,7 +3,7 @@
    Motor del juego
 ======================================================= */
 import { db } from "./firebase.js";
-
+import { DECKS } from "./cards.js";
 import {
     doc,
     setDoc
