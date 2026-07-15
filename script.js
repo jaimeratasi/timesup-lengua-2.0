@@ -299,4 +299,6 @@ function iniciarPartida(){
 
     mostrarPantalla("play");
 
+    iniciarTemporizador();
+
 }
