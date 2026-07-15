@@ -293,3 +293,8 @@ async function unirsePartida() {
 
     alert("¡Te has unido a la partida!");
 }
+function iniciarPartida(){
+
+    mostrarPantalla("play");
+
+}
