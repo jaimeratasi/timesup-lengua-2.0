@@ -229,6 +229,7 @@ function registrarEventos(){
 ui.studentBtn.addEventListener("click", () => {
     mostrarPantalla("join");
 });
+   ui.joinBtn.addEventListener("click", unirsePartida);
 
 }
 
@@ -277,4 +278,17 @@ function generarCodigo(){
 
     return codigo;
 
+}
+async function unirsePartida() {
+
+    const codigo = ui.joinCode.value.trim().toUpperCase();
+
+    const partida = await getDoc(doc(db, "partidas", codigo));
+
+    if (!partida.exists()) {
+        alert("No existe esa partida");
+        return;
+    }
+
+    alert("¡Te has unido a la partida!");
 }
