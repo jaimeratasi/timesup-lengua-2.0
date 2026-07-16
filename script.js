@@ -261,6 +261,7 @@ async function crearPartida() {
         modo: game.mode,
         cartas: game.cardsPerGame,
         segundos: game.secondsPerTurn
+       jugadores: []
     });
 
     game.id = gameId;
