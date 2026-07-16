@@ -7,7 +7,10 @@ import { db } from "./firebase.js";
 import { DECKS } from "./cards.js";
 import {
     doc,
-    setDoc
+    setDoc,
+    updateDoc,
+    onSnapshot,
+    arrayUnion
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const game = {
