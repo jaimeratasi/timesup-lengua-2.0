@@ -295,7 +295,9 @@ async function unirsePartida() {
         alert("No existe esa partida");
         return;
     }
-
+await updateDoc(doc(db, "partidas", codigo), {
+    jugadores: arrayUnion("Alumno")
+});
     alert("¡Te has unido a la partida!");
 }
 
