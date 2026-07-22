@@ -313,13 +313,18 @@ async function unirsePartida() {
         alert("No existe esa partida");
         return;
     }
-await updateDoc(doc(db, "partidas", codigo), {
-    jugadores: arrayUnion("Alumno")
-});
+
+    const nombre = "Alumno-" + Math.floor(Math.random() * 1000000);
+
+    await updateDoc(doc(db, "partidas", codigo), {
+        jugadores: arrayUnion(nombre)
+    });
+
+    game.id = codigo;
+
     alert("¡Te has unido a la partida!");
+
 }
-
-
 function iniciarPartida(){
 
     mostrarPantalla("play");
