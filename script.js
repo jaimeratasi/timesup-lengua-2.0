@@ -68,8 +68,8 @@ window.addEventListener("load",()=>{
 
 ui.teacherBtn.onclick=()=>pantalla("homeScreen");
     
-    ui.studentBtn.onclick=()=>pantalla("join");
-
+ui.studentBtn.onclick=()=>pantalla("join");
+    
     ui.createGameBtn.onclick=crearPartida;
 
     ui.joinBtn.onclick=unirsePartida;
