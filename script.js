@@ -84,7 +84,7 @@ window.addEventListener("load",()=>{
 
     ui.correctBtn.onclick = acierto;
 
-    ui.passBtn.onclick = pasar;
+    ui.passBtn.onclick = () => console.log("PASAR");
 
 });
 
