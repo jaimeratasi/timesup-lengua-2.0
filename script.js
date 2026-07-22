@@ -54,7 +54,7 @@ function pantalla(nombre){
     .forEach(x=>x.classList.add("hidden"));
 
 
-    ui[nombre].classList.remove("hidden");
+    document.getElementById(nombre).classList.remove("hidden");
 
 }
 
