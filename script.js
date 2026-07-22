@@ -51,13 +51,18 @@ const ui = {
 function pantalla(nombre){
 
     document.querySelectorAll(".screen")
-    .forEach(x=>x.classList.add("hidden"));
+    .forEach(x => x.classList.add("hidden"));
 
+    const pantalla = document.getElementById(nombre);
 
-    document.getElementById(nombre).classList.remove("hidden");
+    if(!pantalla){
+        console.error("No existe la pantalla:", nombre);
+        return;
+    }
+
+    pantalla.classList.remove("hidden");
 
 }
-
 
 
 // ==========================
