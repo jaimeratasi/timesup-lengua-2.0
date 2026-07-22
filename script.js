@@ -149,8 +149,7 @@ async function unirsePartida(){
 
 
     jugadorId =
-    "Jugador-"+Math.floor(Math.random()*9999);
-
+    "Jugador-" + Math.floor(Math.random()*9999);
 
 
     await updateDoc(ref,{
@@ -164,10 +163,9 @@ async function unirsePartida(){
     escucharPartida();
 
 
-    alert("Unido a la partida");
+    alert("Te has unido a la partida");
 
 }
-
 
 
 // ==========================
