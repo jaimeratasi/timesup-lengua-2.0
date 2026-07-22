@@ -320,13 +320,20 @@ async function prepararPrimeraCarta(){
 }
 async function acierto(){
 
-    console.log("ACIERTO PULSADO. Partida:", partidaId);
-
     const ref = doc(db,"partidas",partidaId);
 
     const partida = await getDoc(ref);
 
-    console.log("DATOS ANTES:", partida.data());
+    const datos = partida.data();
+
+    const nuevasCartas = [...datos.cartas];
+
+    nuevasCartas.shift();
+
+    await updateDoc(ref,{
+        cartas: nuevasCartas,
+        cartaActual: nuevasCartas[0] || null
+    });
 
 }
 async function pasar(){
