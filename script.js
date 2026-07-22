@@ -40,7 +40,7 @@ const ui = {
 
     gameCodeBox: document.getElementById("gameCodeBox"),
 
-    startGameBtn: document.getElementById("startGameBtn")
+    startGameBtn: document.getElementById("startGameBtn"),
     correctBtn: document.getElementById("correctBtn"),
 passBtn: document.getElementById("passBtn"),
 
