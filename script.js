@@ -150,17 +150,19 @@ async function crearPartida(){
 
 async function unirsePartida(){
 
-    partidaId =
-    ui.joinCode.value.trim().toUpperCase();
+   jugadorId =
+"Jugador-" + Math.floor(Math.random()*9999);
 
 
-    const ref =
-    doc(db,"partidas",partidaId);
+const jugadoresActuales = partida.data().jugadores || [];
+
+jugadorNumero = jugadoresActuales.length;
 
 
-    const partida =
-    await getDoc(ref);
-
+await updateDoc(ref,{
+    jugadores:
+    arrayUnion(jugadorId)
+});
 
     if(!partida.exists()){
 
