@@ -373,6 +373,7 @@ async function pasar(){
 
 }
 function iniciarTemporizador(){
+    console.log("TEMPORIZADOR INICIADO");
 
     if(intervaloTiempo){
         clearInterval(intervaloTiempo);
