@@ -389,13 +389,20 @@ function iniciarTemporizador(){
         const datos = partida.data();
 
 
-        if(datos.tiempo <= 0){
+      if(datos.tiempo <= 0){
 
-            clearInterval(intervaloTiempo);
-            return;
+    clearInterval(intervaloTiempo);
 
-        }
 
+    await updateDoc(ref,{
+        tiempo:60,
+        jugadorActivo: datos.jugadorActivo + 1
+    });
+
+
+    return;
+
+}
 
         await updateDoc(ref,{
             tiempo: datos.tiempo - 1
