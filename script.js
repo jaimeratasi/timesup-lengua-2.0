@@ -85,8 +85,7 @@ console.log("ENTRANDO EN LOAD");
 
     ui.correctBtn.onclick = acierto;
 
-    ui.passBtn.onclick = () => console.log("PASAR");
-
+ui.passBtn.onclick = pasar;
 });
 
 
@@ -328,5 +327,29 @@ async function acierto(){
     const partida = await getDoc(ref);
 
     console.log("DATOS ANTES:", partida.data());
+
+}
+async function pasar(){
+
+    const ref = doc(db,"partidas",partidaId);
+
+    const partida = await getDoc(ref);
+
+    const datos = partida.data();
+
+    const nuevasCartas = [...datos.cartas];
+
+    const cartaPasada = nuevasCartas.shift();
+
+    nuevasCartas.push(cartaPasada);
+
+
+    await updateDoc(ref,{
+
+        cartas: nuevasCartas,
+
+        cartaActual: nuevasCartas[0]
+
+    });
 
 }
