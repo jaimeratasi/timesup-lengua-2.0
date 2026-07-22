@@ -192,28 +192,38 @@ async function unirsePartida(){
 
 function escucharPartida(){
 
+    console.log("Escuchando partida:", partidaId);
+
+
     onSnapshot(
         doc(db,"partidas",partidaId),
         (snap)=>{
 
 
-            if(!snap.exists())
+            if(!snap.exists()){
+
+                console.log("La partida no existe");
+
                 return;
+
+            }
 
 
             const datos=snap.data();
 
 
-            console.log("Estado partida:",datos);
+            console.log("Cambio recibido:", datos);
 
 
-if(datos.estado==="jugando"){
 
-    pantalla("playScreen");
+            if(datos.estado==="jugando"){
 
-    mostrarCarta(datos);
+                pantalla("playScreen");
 
-}
+                mostrarCarta(datos);
+
+            }
+
 
         }
     );
