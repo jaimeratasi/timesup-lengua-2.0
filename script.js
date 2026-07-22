@@ -72,54 +72,19 @@ function pantalla(nombre){
 
 window.addEventListener("load",()=>{
 
-    console.log("Eventos cargados");
+    ui.teacherBtn.onclick = () => pantalla("homeScreen");
 
+    ui.studentBtn.onclick = () => pantalla("joinScreen");
 
-    ui.teacherBtn.addEventListener(
-        "click",
-        ()=>pantalla("homeScreen")
-    );
+    ui.createGameBtn.onclick = crearPartida;
 
+    ui.joinBtn.onclick = unirsePartida;
 
-    ui.studentBtn.addEventListener(
-        "click",
-        ()=>pantalla("joinScreen")
-    );
+    ui.startGameBtn.onclick = iniciarJuego;
 
+    ui.correctBtn.onclick = acierto;
 
-    ui.createGameBtn.addEventListener(
-        "click",
-        crearPartida
-    );
-
-
-    ui.joinBtn.addEventListener(
-        "click",
-        unirsePartida
-    );
-
-
-    ui.startGameBtn.addEventListener(
-        "click",
-        iniciarJuego
-    );
-
-
-    ui.correctBtn.addEventListener(
-        "click",
-        ()=>{
-            console.log("BOTÓN ACIERTO FUNCIONA");
-        }
-    );
-
-
-    ui.passBtn.addEventListener(
-        "click",
-        ()=>{
-            console.log("BOTÓN PASAR FUNCIONA");
-        }
-    );
-
+    ui.passBtn.onclick = pasar;
 
 });
 
