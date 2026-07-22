@@ -16,6 +16,7 @@ import {
 
 let partidaId = null;
 let jugadorId = null;
+let jugadorNumero = null;
 let intervaloTiempo = null;
 
 
