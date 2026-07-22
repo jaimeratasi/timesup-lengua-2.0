@@ -71,7 +71,7 @@ function pantalla(nombre){
 // ==========================
 
 window.addEventListener("load",()=>{
-
+console.log("ENTRANDO EN LOAD");
     ui.teacherBtn.onclick = () => pantalla("homeScreen");
 
     ui.studentBtn.onclick = () => pantalla("joinScreen");
