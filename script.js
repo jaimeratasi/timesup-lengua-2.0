@@ -258,7 +258,11 @@ async function crearPartida() {
 
         const gameId = generarCodigo();
 
-        await setDoc(doc(db, "partidas", gameId), {
+       console.log("Antes de guardar");
+
+await setDoc(doc(db, "partidas", gameId), {
+
+console.log("Después de guardar");
             creada: new Date(),
             ronda: 1,
             mazo: game.deckName,
