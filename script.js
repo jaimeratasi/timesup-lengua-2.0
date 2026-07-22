@@ -1,420 +1,248 @@
-/* =======================================================
-   PALABRA MAESTRA
-   Motor del juego
-======================================================= */
-import { getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 import { db } from "./firebase.js";
-import { DECKS } from "./cards.js";
 import {
     doc,
     setDoc,
+    getDoc,
     updateDoc,
-    onSnapshot,
-    arrayUnion
+    arrayUnion,
+    onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-const game = {
 
-    mode: "Time's Up",
+// ==========================
+// ESTADO LOCAL
+// ==========================
 
-    deckName: "",
-
-    originalDeck: [],
-
-    deck: [],
-
-    currentCard: null,
-
-    round: 1,
-
-    timer: 60,
-
-    secondsPerTurn: 60,
-
-    cardsPerGame: 30,
-
-    correctCards: [],
-
-    currentTurnCorrect: 0,
-
-    interval: null,
-
-    seed: null
-
-};
+let partidaId = null;
+let jugadorId = null;
 
 
-
-/* =======================================================
-   INTERFAZ
-======================================================= */
+// ==========================
+// INTERFAZ
+// ==========================
 
 const ui = {
 
-welcomeScreen: document.getElementById("welcomeScreen"),
-
-teacherBtn: document.getElementById("teacherBtn"),
-
-studentBtn: document.getElementById("studentBtn"),
-
-joinScreen: document.getElementById("joinScreen"),
-
-joinBtn: document.getElementById("joinBtn"),
-
-joinCode: document.getElementById("joinCode"),
-   
-   homeScreen: document.getElementById("homeScreen"),
-
-   lobbyScreen: document.getElementById("lobbyScreen"),
-
-gameCodeBox: document.getElementById("gameCodeBox"),
-
-copyGameCodeBtn: document.getElementById("copyGameCodeBtn"),
-
-startGameBtn: document.getElementById("startGameBtn"),
-
+    welcomeScreen: document.getElementById("welcomeScreen"),
+    homeScreen: document.getElementById("homeScreen"),
+    joinScreen: document.getElementById("joinScreen"),
+    lobbyScreen: document.getElementById("lobbyScreen"),
     playScreen: document.getElementById("playScreen"),
 
-    turnScreen: document.getElementById("turnScreen"),
-
-    roundScreen: document.getElementById("roundScreen"),
-
-    finishScreen: document.getElementById("finishScreen"),
-
-    deckSelect: document.getElementById("deckSelect"),
-
-    cardsNumber: document.getElementById("cardsNumber"),
-
-    roundTime: document.getElementById("roundTime"),
-
-    gameMode: document.getElementById("gameMode"),
+    teacherBtn: document.getElementById("teacherBtn"),
+    studentBtn: document.getElementById("studentBtn"),
 
     createGameBtn: document.getElementById("createGameBtn"),
+    joinBtn: document.getElementById("joinBtn"),
 
-    timer: document.getElementById("timer"),
+    joinCode: document.getElementById("joinCode"),
 
-    gameCard: document.getElementById("gameCard"),
+    gameCodeBox: document.getElementById("gameCodeBox"),
 
-    remainingCards: document.getElementById("remainingCards"),
-
-    correctBtn: document.getElementById("correctBtn"),
-
-    passBtn: document.getElementById("passBtn"),
-
-    roundLabel: document.getElementById("roundLabel")
+    startGameBtn: document.getElementById("startGameBtn")
 
 };
 
 
+// ==========================
+// PANTALLAS
+// ==========================
 
-/* =======================================================
-   INICIO
-======================================================= */
+function pantalla(nombre){
 
-window.addEventListener("load", init);
+    document.querySelectorAll(".screen")
+    .forEach(x=>x.classList.add("hidden"));
 
-function init(){
 
-    cargarMazos();
-
-    mostrarPantalla("welcome");
-
-    registrarEventos();
+    ui[nombre].classList.remove("hidden");
 
 }
 
 
 
-/* =======================================================
-   MAZOS
-======================================================= */
+// ==========================
+// EVENTOS
+// ==========================
 
-function cargarMazos(){
+window.addEventListener("load",()=>{
 
-    ui.deckSelect.innerHTML = "";
+    ui.teacherBtn.onclick=()=>pantalla("home");
 
-    for(const id in DECKS){
+    ui.studentBtn.onclick=()=>pantalla("join");
 
-        const option = document.createElement("option");
+    ui.createGameBtn.onclick=crearPartida;
 
-        option.value = id;
+    ui.joinBtn.onclick=unirsePartida;
 
-        option.textContent = DECKS[id].nombre;
+    ui.startGameBtn.onclick=iniciarJuego;
 
-        ui.deckSelect.appendChild(option);
-
-    }
-
-}
-
-
-
-/* =======================================================
-   PANTALLAS
-======================================================= */
-
-function mostrarPantalla(nombre){
-   ui.welcomeScreen.classList.add("hidden");
-ui.joinScreen.classList.add("hidden");
-
-    ui.homeScreen.classList.add("hidden");
-
-    ui.playScreen.classList.add("hidden");
-
-    ui.turnScreen.classList.add("hidden");
-
-    ui.roundScreen.classList.add("hidden");
-
-    ui.finishScreen.classList.add("hidden");
-   
-    ui.lobbyScreen.classList.add("hidden");
-
-    switch(nombre){
-
-        case "home":
-
-            ui.homeScreen.classList.remove("hidden");
-
-        break;
-
-        case "play":
-
-            ui.playScreen.classList.remove("hidden");
-
-        break;
-
-        case "turn":
-
-            ui.turnScreen.classList.remove("hidden");
-
-        break;
-
-        case "round":
-
-            ui.roundScreen.classList.remove("hidden");
-
-        break;
-
-        case "finish":
-
-            ui.finishScreen.classList.remove("hidden");
-
-        break;
-
-          case "lobby":
-    ui.lobbyScreen.classList.remove("hidden");
-break;
-          case "welcome":
-    ui.welcomeScreen.classList.remove("hidden");
-break;
-
-case "join":
-    ui.joinScreen.classList.remove("hidden");
-break;
-
-    }
-
-}
-
-
-
-/* =======================================================
-   EVENTOS
-======================================================= */
-
-function registrarEventos(){
-
-    ui.createGameBtn.addEventListener("click", crearPartida);
-   ui.teacherBtn.addEventListener("click", () => {
-    mostrarPantalla("home");
 });
 
-ui.studentBtn.addEventListener("click", () => {
-    mostrarPantalla("join");
-});
-   ui.joinBtn.addEventListener("click", unirsePartida);
-   ui.startGameBtn.addEventListener("click", iniciarPartida);
-ui.correctBtn.addEventListener("click", acierto);
 
-ui.passBtn.addEventListener("click", pasar);
+
+// ==========================
+// CREAR PARTIDA
+// ==========================
+
+async function crearPartida(){
+
+    partidaId = codigo();
+
+    await setDoc(
+        doc(db,"partidas",partidaId),
+        {
+
+            estado:"lobby",
+
+            jugadores:[],
+
+            ronda:1,
+
+            turno:0
+
+        }
+    );
+
+
+    ui.gameCodeBox.textContent=partidaId;
+
+
+    escucharPartida();
+
+
+    pantalla("lobby");
+
+
 }
 
 
 
-/* =======================================================
-   PARTIDA
-======================================================= */
+// ==========================
+// UNIRSE
+// ==========================
 
-async function crearPartida() {
+async function unirsePartida(){
 
-    alert("He entrado en crearPartida");
+    partidaId =
+    ui.joinCode.value.trim().toUpperCase();
 
-    try {
 
-        game.mode = ui.gameMode.value;
-        game.deckName = ui.deckSelect.value;
-        game.cardsPerGame = Number(ui.cardsNumber.value);
-        game.secondsPerTurn = Number(ui.roundTime.value);
+    const ref =
+    doc(db,"partidas",partidaId);
 
-        const gameId = generarCodigo();
 
-       console.log("Antes de guardar");
+    const partida =
+    await getDoc(ref);
 
-await setDoc(doc(db, "partidas", gameId), {
 
-console.log("Después de guardar");
-            creada: new Date(),
-            ronda: 1,
-            mazo: game.deckName,
-            modo: game.mode,
-            cartas: game.cardsPerGame,
-            segundos: game.secondsPerTurn,
-            jugadores: []
-        });
+    if(!partida.exists()){
 
-        console.log("Partida creada:", gameId);
+        alert("No existe la partida");
 
-        game.id = gameId;
-
-        ui.gameCodeBox.textContent = gameId;
-
-        mostrarPantalla("lobby");
-
-    } catch (error) {
-
-        console.error(error);
-        alert(error.message);
+        return;
 
     }
 
+
+    jugadorId =
+    "Jugador-"+Math.floor(Math.random()*9999);
+
+
+
+    await updateDoc(ref,{
+
+        jugadores:
+        arrayUnion(jugadorId)
+
+    });
+
+
+    escucharPartida();
+
+
+    alert("Unido a la partida");
+
 }
-function generarCodigo(){
 
-    const caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-    let codigo = "";
+
+// ==========================
+// ESCUCHAR PARTIDA
+// ==========================
+
+function escucharPartida(){
+
+    onSnapshot(
+        doc(db,"partidas",partidaId),
+        (snap)=>{
+
+
+            if(!snap.exists())
+                return;
+
+
+            const datos=snap.data();
+
+
+            console.log("Estado partida:",datos);
+
+
+
+            if(datos.estado==="jugando"){
+
+                pantalla("play");
+
+            }
+
+
+        }
+    );
+
+}
+
+
+
+// ==========================
+// COMENZAR
+// ==========================
+
+async function iniciarJuego(){
+
+
+    await updateDoc(
+        doc(db,"partidas",partidaId),
+        {
+
+            estado:"jugando"
+
+        }
+    );
+
+
+}
+
+
+
+// ==========================
+// CODIGO
+// ==========================
+
+function codigo(){
+
+    const letras="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let r="";
+
 
     for(let i=0;i<8;i++){
 
-        codigo += caracteres[Math.floor(Math.random()*caracteres.length)];
+        r+=letras[
+            Math.floor(Math.random()*letras.length)
+        ];
 
     }
 
-    return codigo;
 
-}
-async function unirsePartida() {
-
-    const codigo = ui.joinCode.value.trim().toUpperCase();
-
-    const partida = await getDoc(doc(db, "partidas", codigo));
-
-    if (!partida.exists()) {
-        alert("No existe esa partida");
-        return;
-    }
-
-    const nombre = "Alumno-" + Math.floor(Math.random() * 1000000);
-
-    await updateDoc(doc(db, "partidas", codigo), {
-        jugadores: arrayUnion(nombre)
-    });
-
-    game.id = codigo;
-
-    alert("¡Te has unido a la partida!");
-
-}
-function iniciarPartida(){
-
-    mostrarPantalla("play");
-
-    prepararCartas();
-   ui.remainingCards.textContent = 
-    "Quedan " + game.deck.length + " cartas";
-
-    mostrarCarta();
-
-    iniciarTemporizador();
-
-}
-function iniciarTemporizador(){
-
-    game.timer = game.secondsPerTurn;
-
-    ui.timer.textContent = game.timer;
-
-    game.interval = setInterval(() => {
-
-        game.timer--;
-
-        ui.timer.textContent = game.timer;
-
-        if(game.timer <= 0){
-
-            clearInterval(game.interval);
-
-            alert("Turno terminado");
-
-        }
-
-    },1000);
-
-}
-function acierto(){
-
-    game.currentTurnCorrect++;
-
-    quitarCarta();
-
-}
-
-
-function pasar(){
-
-    quitarCarta();
-
-}
-
-
-function quitarCarta(){
-
-    const posicion = game.deck.indexOf(game.currentCard);
-
-    if(posicion !== -1){
-
-        game.deck.splice(posicion,1);
-
-    }
-
-    ui.remainingCards.textContent = 
-        "Quedan " + game.deck.length + " cartas";
-
-    mostrarCarta();
-
-}
-
-function prepararCartas(){
-
-    game.deck = [...DECKS[game.deckName].cartas];
-
-}
-
-
-function mostrarCarta(){
-
-    if(game.deck.length === 0){
-
-        ui.gameCard.textContent = "FIN";
-
-        return;
-
-    }
-
-    const indice = Math.floor(Math.random()*game.deck.length);
-
-    game.currentCard = game.deck[indice];
-
-    ui.gameCard.textContent = game.currentCard;
+    return r;
 
 }
