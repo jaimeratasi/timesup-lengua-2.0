@@ -222,6 +222,7 @@ function escucharPartida(){
 
 
             console.log("Cambio recibido:", datos);
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
 
 
