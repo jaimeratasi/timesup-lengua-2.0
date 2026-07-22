@@ -260,7 +260,7 @@ async function crearPartida() {
         mazo: game.deckName,
         modo: game.mode,
         cartas: game.cardsPerGame,
-        segundos: game.secondsPerTurn
+        segundos: game.secondsPerTurn,
        jugadores: []
     });
 
