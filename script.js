@@ -381,41 +381,43 @@ async function pasar(){
 
 }
 function iniciarTemporizador(){
+
     console.log("TEMPORIZADOR INICIADO");
 
     if(intervaloTiempo){
         clearInterval(intervaloTiempo);
     }
 
-
     intervaloTiempo = setInterval(async ()=>{
 
         const ref = doc(db,"partidas",partidaId);
 
-        const partida = await getDoc(ref);
+        const snap = await getDoc(ref);
 
-        const datos = partida.data();
+        if(!snap.exists()) return;
 
+        const datos = snap.data();
 
-      if(datos.tiempo <= 0){
+        // Se acabó el tiempo
+        if(datos.tiempo <= 0){
 
-    clearInterval(intervaloTiempo);
+            clearInterval(intervaloTiempo);
 
+            const siguienteJugador =
+                (datos.jugadorActivo + 1) % datos.jugadores.length;
 
-    await updateDoc(ref,{
-        tiempo:60,
-        jugadorActivo: datos.jugadorActivo + 1
-    });
+            await updateDoc(ref,{
+                tiempo: 60,
+                jugadorActivo: siguienteJugador
+            });
 
+            return;
+        }
 
-    return;
-
-}
-
+        // Sigue contando
         await updateDoc(ref,{
             tiempo: datos.tiempo - 1
         });
-
 
     },1000);
 
