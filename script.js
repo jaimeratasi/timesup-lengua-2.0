@@ -265,3 +265,24 @@ function codigo(){
     return r;
 
 }
+
+async function prepararPrimeraCarta(){
+
+    const ref = doc(db,"partidas",partidaId);
+
+    const partida = await getDoc(ref);
+
+    const datos = partida.data();
+
+    if(datos.cartaActual){
+        return;
+    }
+
+
+    await updateDoc(ref,{
+
+        cartaActual: datos.cartas[0]
+
+    });
+
+}
