@@ -247,6 +247,8 @@ ui.passBtn.addEventListener("click", pasar);
 
 async function crearPartida() {
 
+    alert("He entrado en crearPartida");
+
     try {
 
         game.mode = ui.gameMode.value;
