@@ -261,14 +261,14 @@ async function crearPartida() {
         modo: game.mode,
         cartas: game.cardsPerGame,
         segundos: game.secondsPerTurn,
-       jugadores: []
+        jugadores: []
     });
 
     game.id = gameId;
 
-ui.gameCodeBox.textContent = gameId;
+    ui.gameCodeBox.textContent = gameId;
 
-mostrarPantalla("lobby");
+    mostrarPantalla("lobby");
 
 }
 function generarCodigo(){
