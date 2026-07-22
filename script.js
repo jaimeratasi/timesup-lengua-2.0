@@ -66,8 +66,8 @@ function pantalla(nombre){
 
 window.addEventListener("load",()=>{
 
-    ui.teacherBtn.onclick=()=>pantalla("home");
-
+ui.teacherBtn.onclick=()=>pantalla("homeScreen");
+    
     ui.studentBtn.onclick=()=>pantalla("join");
 
     ui.createGameBtn.onclick=crearPartida;
