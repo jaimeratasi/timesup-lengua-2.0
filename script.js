@@ -237,9 +237,9 @@ function escucharPartida(){
 }
 function mostrarCarta(datos){
 
+    const carta = document.getElementById("gameCard");
 
-    const carta =
-    document.getElementById("gameCard");
+    const contador = document.getElementById("remainingCards");
 
 
     if(datos.jugadorActivo === 0 && jugadorId){
@@ -255,6 +255,9 @@ function mostrarCarta(datos){
 
     }
 
+
+    contador.textContent =
+    "Quedan " + datos.cartas.length + " cartas";
 
 }
 
