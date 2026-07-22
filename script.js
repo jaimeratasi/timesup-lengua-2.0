@@ -1,4 +1,5 @@
 import { db } from "./firebase.js";
+import { DECKS } from "./cards.js";
 import {
     doc,
     setDoc,
@@ -93,6 +94,14 @@ async function crearPartida(){
 
     partidaId = codigo();
 
+
+    const mazoElegido = "figuras"; 
+    // temporalmente usamos figuras para probar
+
+
+    const cartas = [...DECKS[mazoElegido].cartas];
+
+
     await setDoc(
         doc(db,"partidas",partidaId),
         {
@@ -103,19 +112,28 @@ async function crearPartida(){
 
             ronda:1,
 
-            turno:0
+            turno:0,
+
+            jugadorActivo:0,
+
+            cartas:cartas,
+
+            cartaActual:null,
+
+            tiempo:60
 
         }
     );
 
 
-    ui.gameCodeBox.textContent=partidaId;
+    ui.gameCodeBox.textContent = partidaId;
 
 
     escucharPartida();
 
 
-pantalla("lobbyScreen");
+    pantalla("lobbyScreen");
+
 
 }
 
