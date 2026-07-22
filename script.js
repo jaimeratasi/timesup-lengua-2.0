@@ -150,19 +150,14 @@ async function crearPartida(){
 
 async function unirsePartida(){
 
-   jugadorId =
-"Jugador-" + Math.floor(Math.random()*9999);
+    partidaId = ui.joinCode.value.trim().toUpperCase();
 
 
-const jugadoresActuales = partida.data().jugadores || [];
-
-jugadorNumero = jugadoresActuales.length;
+    const ref = doc(db,"partidas",partidaId);
 
 
-await updateDoc(ref,{
-    jugadores:
-    arrayUnion(jugadorId)
-});
+    const partida = await getDoc(ref);
+
 
     if(!partida.exists()){
 
@@ -173,14 +168,22 @@ await updateDoc(ref,{
     }
 
 
+    const datos = partida.data();
+
+
+    const jugadoresActuales = datos.jugadores || [];
+
+
+    jugadorNumero = jugadoresActuales.length;
+
+
     jugadorId =
     "Jugador-" + Math.floor(Math.random()*9999);
 
 
     await updateDoc(ref,{
 
-        jugadores:
-        arrayUnion(jugadorId)
+        jugadores: arrayUnion(jugadorId)
 
     });
 
@@ -191,7 +194,6 @@ await updateDoc(ref,{
     alert("Te has unido a la partida");
 
 }
-
 
 // ==========================
 // ESCUCHAR PARTIDA
