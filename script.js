@@ -248,7 +248,8 @@ function mostrarCarta(datos){
     const contador = document.getElementById("remainingCards");
 
 
-if(datos.jugadorActivo === jugadorNumero)
+    if(datos.jugadorActivo === jugadorNumero){
+
         carta.textContent =
         datos.cartaActual || "Esperando carta";
 
@@ -264,8 +265,11 @@ if(datos.jugadorActivo === jugadorNumero)
     contador.textContent =
     "Quedan " + datos.cartas.length + " cartas";
 
-}
 
+    document.getElementById("timer").textContent =
+    datos.tiempo;
+
+}
 
 // ==========================
 // COMENZAR
