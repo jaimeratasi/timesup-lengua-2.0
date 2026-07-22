@@ -189,8 +189,7 @@ function escucharPartida(){
 
             if(datos.estado==="jugando"){
 
-                pantalla("play");
-
+pantalla("playScreen");
             }
 
 
