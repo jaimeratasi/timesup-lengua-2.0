@@ -248,8 +248,7 @@ function mostrarCarta(datos){
     const contador = document.getElementById("remainingCards");
 
 
-    if(datos.jugadorActivo === 0 && jugadorId){
-
+if(datos.jugadorActivo === jugadorNumero)
         carta.textContent =
         datos.cartaActual || "Esperando carta";
 
