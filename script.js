@@ -219,7 +219,28 @@ if(datos.estado==="jugando"){
     );
 
 }
+function mostrarCarta(datos){
 
+
+    const carta =
+    document.getElementById("gameCard");
+
+
+    if(datos.jugadorActivo === 0 && jugadorId){
+
+        carta.textContent =
+        datos.cartaActual || "Esperando carta";
+
+    }
+    else{
+
+        carta.textContent =
+        "Esperando turno";
+
+    }
+
+
+}
 
 
 // ==========================
@@ -228,16 +249,13 @@ if(datos.estado==="jugando"){
 
 async function iniciarJuego(){
 
-
     await updateDoc(
         doc(db,"partidas",partidaId),
         {
-
-            estado:"jugando"
-
+            estado:"jugando",
+            cartaActual:"Metáfora"
         }
     );
-
 
 }
 
