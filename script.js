@@ -321,6 +321,23 @@ async function prepararPrimeraCarta(){
 }
 async function acierto(){
 
-    console.log("ACIERTO PULSADO");
+    const ref = doc(db,"partidas",partidaId);
+
+    const partida = await getDoc(ref);
+
+    const datos = partida.data();
+
+    const nuevasCartas = [...datos.cartas];
+
+    nuevasCartas.shift();
+
+
+    await updateDoc(ref,{
+
+        cartas: nuevasCartas,
+
+        cartaActual: nuevasCartas[0] || null
+
+    });
 
 }
