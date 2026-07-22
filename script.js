@@ -247,28 +247,39 @@ ui.passBtn.addEventListener("click", pasar);
 
 async function crearPartida() {
 
-    game.mode = ui.gameMode.value;
-    game.deckName = ui.deckSelect.value;
-    game.cardsPerGame = Number(ui.cardsNumber.value);
-    game.secondsPerTurn = Number(ui.roundTime.value);
+    try {
 
-    const gameId = generarCodigo();
+        game.mode = ui.gameMode.value;
+        game.deckName = ui.deckSelect.value;
+        game.cardsPerGame = Number(ui.cardsNumber.value);
+        game.secondsPerTurn = Number(ui.roundTime.value);
 
-    await setDoc(doc(db, "partidas", gameId), {
-        creada: new Date(),
-        ronda: 1,
-        mazo: game.deckName,
-        modo: game.mode,
-        cartas: game.cardsPerGame,
-        segundos: game.secondsPerTurn,
-        jugadores: []
-    });
+        const gameId = generarCodigo();
 
-    game.id = gameId;
+        await setDoc(doc(db, "partidas", gameId), {
+            creada: new Date(),
+            ronda: 1,
+            mazo: game.deckName,
+            modo: game.mode,
+            cartas: game.cardsPerGame,
+            segundos: game.secondsPerTurn,
+            jugadores: []
+        });
 
-    ui.gameCodeBox.textContent = gameId;
+        console.log("Partida creada:", gameId);
 
-    mostrarPantalla("lobby");
+        game.id = gameId;
+
+        ui.gameCodeBox.textContent = gameId;
+
+        mostrarPantalla("lobby");
+
+    } catch (error) {
+
+        console.error(error);
+        alert(error.message);
+
+    }
 
 }
 function generarCodigo(){
