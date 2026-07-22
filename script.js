@@ -68,7 +68,7 @@ window.addEventListener("load",()=>{
 
 ui.teacherBtn.onclick=()=>pantalla("homeScreen");
     
-ui.studentBtn.onclick=()=>pantalla("join");
+ui.studentBtn.onclick=()=>pantalla("joinScreen");
     
     ui.createGameBtn.onclick=crearPartida;
 
@@ -110,8 +110,7 @@ async function crearPartida(){
     escucharPartida();
 
 
-    pantalla("lobby");
-
+pantalla("lobbyScreen");
 
 }
 
