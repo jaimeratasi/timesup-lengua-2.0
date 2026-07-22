@@ -219,13 +219,16 @@ function escucharPartida(){
 
 
 
-            if(datos.estado==="jugando"){
+           if(datos.estado==="jugando"){
 
-                pantalla("playScreen");
+    pantalla("playScreen");
 
-                mostrarCarta(datos);
+    mostrarCarta(datos);
 
-            }
+    document.getElementById("remainingCards").textContent =
+        "Quedan " + datos.cartas.length + " cartas";
+
+}
 
 
         }
