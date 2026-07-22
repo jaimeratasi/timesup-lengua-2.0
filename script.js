@@ -35,17 +35,16 @@ const ui = {
 
     createGameBtn: document.getElementById("createGameBtn"),
     joinBtn: document.getElementById("joinBtn"),
+    startGameBtn: document.getElementById("startGameBtn"),
 
     joinCode: document.getElementById("joinCode"),
 
     gameCodeBox: document.getElementById("gameCodeBox"),
 
-    startGameBtn: document.getElementById("startGameBtn"),
     correctBtn: document.getElementById("correctBtn"),
-passBtn: document.getElementById("passBtn"),
+    passBtn: document.getElementById("passBtn")
 
 };
-
 
 // ==========================
 // PANTALLAS
