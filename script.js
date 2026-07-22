@@ -16,6 +16,7 @@ import {
 
 let partidaId = null;
 let jugadorId = null;
+let intervaloTiempo = null;
 
 
 // ==========================
@@ -274,9 +275,12 @@ async function iniciarJuego(){
         doc(db,"partidas",partidaId),
         {
             estado:"jugando",
-            cartaActual:"Metáfora"
+            cartaActual:"Metáfora",
+            tiempo:60
         }
     );
+
+    iniciarTemporizador();
 
 }
 
@@ -366,5 +370,37 @@ async function pasar(){
         cartaActual: nuevasCartas[0]
 
     });
+
+}
+function iniciarTemporizador(){
+
+    if(intervaloTiempo){
+        clearInterval(intervaloTiempo);
+    }
+
+
+    intervaloTiempo = setInterval(async ()=>{
+
+        const ref = doc(db,"partidas",partidaId);
+
+        const partida = await getDoc(ref);
+
+        const datos = partida.data();
+
+
+        if(datos.tiempo <= 0){
+
+            clearInterval(intervaloTiempo);
+            return;
+
+        }
+
+
+        await updateDoc(ref,{
+            tiempo: datos.tiempo - 1
+        });
+
+
+    },1000);
 
 }
