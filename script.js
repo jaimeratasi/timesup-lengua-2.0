@@ -315,3 +315,29 @@ async function prepararPrimeraCarta(){
     });
 
 }
+async function acierto(){
+
+    const ref = doc(db,"partidas",partidaId);
+
+    const partida = await getDoc(ref);
+
+    const datos = partida.data();
+
+
+    const nuevasCartas = [...datos.cartas];
+
+
+    // quitamos la primera carta
+    nuevasCartas.shift();
+
+
+    await updateDoc(ref,{
+
+        cartas:nuevasCartas,
+
+        cartaActual:
+            nuevasCartas[0] || null
+
+    });
+
+}
