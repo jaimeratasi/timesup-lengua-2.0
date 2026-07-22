@@ -207,12 +207,13 @@ function escucharPartida(){
             console.log("Estado partida:",datos);
 
 
+if(datos.estado==="jugando"){
 
-            if(datos.estado==="jugando"){
+    pantalla("playScreen");
 
-pantalla("playScreen");
-            }
+    mostrarCarta(datos);
 
+}
 
         }
     );
