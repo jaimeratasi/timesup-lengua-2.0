@@ -225,6 +225,8 @@ function escucharPartida(){
 
     mostrarCarta(datos);
 
+    document.getElementById("timer").textContent = datos.tiempo;
+
     document.getElementById("remainingCards").textContent =
         "Quedan " + datos.cartas.length + " cartas";
 
