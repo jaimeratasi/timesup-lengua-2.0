@@ -81,7 +81,7 @@ ui.studentBtn.onclick=()=>pantalla("joinScreen");
     ui.joinBtn.onclick=unirsePartida;
 
     ui.startGameBtn.onclick=iniciarJuego;
-
+ui.correctBtn.onclick=acierto;
 });
 
 
