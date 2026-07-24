@@ -255,31 +255,34 @@ function escucharPartida(){
 function mostrarCarta(datos){
 
     const carta = document.getElementById("gameCard");
-
     const contador = document.getElementById("remainingCards");
-
 
     if(datos.jugadorActivo === jugadorNumero){
 
+        // Si me toca y no hay temporizador, lo inicio
+        if(!intervaloTiempo){
+            iniciarTemporizador();
+        }
+
         carta.textContent =
-        datos.cartaActual || "Esperando carta";
+            datos.cartaActual || "Esperando carta";
 
+    }else{
+
+        // Si deja de tocarme, paro mi temporizador
+        if(intervaloTiempo){
+            clearInterval(intervaloTiempo);
+            intervaloTiempo = null;
+        }
+
+        carta.textContent = "Esperando turno";
     }
-    else{
-
-        carta.textContent =
-        "Esperando turno";
-
-    }
-
 
     contador.textContent =
-    "Quedan " + datos.cartas.length + " cartas";
-
+        "Quedan " + datos.cartas.length + " cartas";
 
     document.getElementById("timer").textContent =
-    datos.tiempo;
-
+        datos.tiempo;
 }
 
 // ==========================
