@@ -408,11 +408,12 @@ function iniciarTemporizador(){
                 (datos.jugadorActivo + 1) % datos.jugadores.length;
 
             await updateDoc(ref,{
-                tiempo: 60,
-                jugadorActivo: siguienteJugador
-            });
+    tiempo: 60,
+    jugadorActivo: siguienteJugador
+});
 
-            return;
+// El temporizador sigue para el siguiente jugador
+return;
         }
 
         // Sigue contando
