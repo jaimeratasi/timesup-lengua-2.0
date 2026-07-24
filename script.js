@@ -232,6 +232,14 @@ function escucharPartida(){
 
     mostrarCarta(datos);
 
+               if(
+    datos.estado === "jugando" &&
+    datos.jugadorActivo === jugadorNumero &&
+    !intervaloTiempo
+){
+    iniciarTemporizador();
+}
+
     document.getElementById("timer").textContent = datos.tiempo;
 
     document.getElementById("remainingCards").textContent =
