@@ -285,13 +285,20 @@ function mostrarCarta(datos){
 
 async function iniciarJuego(){
 
+    console.log("INICIO JUEGO PULSADO");
+    console.log("partidaId:", partidaId);
+
     const ref = doc(db,"partidas",partidaId);
 
     const snap = await getDoc(ref);
 
+    console.log("Existe partida:", snap.exists());
+
     if(!snap.exists()) return;
 
     const datos = snap.data();
+
+    console.log("Datos antes:", datos);
 
     await updateDoc(ref,{
         estado: "jugando",
@@ -300,6 +307,8 @@ async function iniciarJuego(){
         jugadorActivo: 0,
         turnoIniciado: false
     });
+
+    console.log("PARTIDA INICIADA");
 
 }
 
