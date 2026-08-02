@@ -460,3 +460,21 @@ function iniciarTemporizador(){
     },1000);
 
 }
+async function iniciarTurno(){
+
+    const ref = doc(db,"partidas",partidaId);
+
+    const snap = await getDoc(ref);
+
+    const datos = snap.data();
+
+    if(datos.jugadorActivo !== jugadorNumero) return;
+
+    await updateDoc(ref,{
+        turnoIniciado:true,
+        tiempo:60
+    });
+
+    iniciarTemporizador();
+
+}
