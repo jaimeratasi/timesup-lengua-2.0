@@ -104,9 +104,15 @@ async function crearPartida(){
 
     partidaId = codigo();
 
+    // El creador es siempre jugador 0
+    jugadorNumero = 0;
+    jugadorId = "Profesor";
+
+
     const mazoElegido = "figuras";
 
     const cartas = [...DECKS[mazoElegido].cartas];
+
 
     await setDoc(
         doc(db,"partidas",partidaId),
@@ -114,7 +120,9 @@ async function crearPartida(){
 
             estado:"lobby",
 
-            jugadores:[],
+            jugadores:[
+                "Profesor"
+            ],
 
             ronda:1,
 
@@ -135,11 +143,15 @@ async function crearPartida(){
         }
     );
 
+
     ui.gameCodeBox.textContent = partidaId;
+
 
     escucharPartida();
 
+
     pantalla("lobbyScreen");
+
 
 }
 // ==========================
