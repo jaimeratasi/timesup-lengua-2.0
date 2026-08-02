@@ -45,6 +45,9 @@ const ui = {
 
     correctBtn: document.getElementById("correctBtn"),
     passBtn: document.getElementById("passBtn")
+    document
+.getElementById("startTurnBtn")
+.onclick = iniciarTurno;
 
 };
 
