@@ -44,10 +44,9 @@ const ui = {
     gameCodeBox: document.getElementById("gameCodeBox"),
 
     correctBtn: document.getElementById("correctBtn"),
-    passBtn: document.getElementById("passBtn")
-    document
-.getElementById("startTurnBtn")
-.onclick = iniciarTurno;
+    passBtn: document.getElementById("passBtn"),
+
+    startTurnBtn: document.getElementById("startTurnBtn")
 
 };
 
