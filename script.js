@@ -77,21 +77,24 @@ function pantalla(nombre){
 
 window.addEventListener("load",()=>{
 console.log("ENTRANDO EN LOAD");
-    ui.teacherBtn.onclick = () => pantalla("homeScreen");
 
-    ui.studentBtn.onclick = () => pantalla("joinScreen");
+ui.teacherBtn.onclick = () => pantalla("homeScreen");
 
-    ui.createGameBtn.onclick = crearPartida;
+ui.studentBtn.onclick = () => pantalla("joinScreen");
 
-    ui.joinBtn.onclick = unirsePartida;
+ui.createGameBtn.onclick = crearPartida;
 
-    ui.startGameBtn.onclick = iniciarJuego;
+ui.joinBtn.onclick = unirsePartida;
 
-    ui.correctBtn.onclick = acierto;
+ui.startGameBtn.onclick = iniciarJuego;
+
+ui.correctBtn.onclick = acierto;
 
 ui.passBtn.onclick = pasar;
-});
 
+ui.startTurnBtn.onclick = iniciarTurno;
+
+});
 
 // ==========================
 // CREAR PARTIDA
