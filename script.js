@@ -265,29 +265,54 @@ function mostrarCarta(datos){
     const carta = document.getElementById("gameCard");
     const contador = document.getElementById("remainingCards");
     const timer = document.getElementById("timer");
+    const boton = document.getElementById("startTurnBtn");
+
 
     contador.textContent =
         "Quedan " + datos.cartas.length + " cartas";
 
+
     timer.textContent = datos.tiempo;
 
-    // No ha comenzado el turno
+
+    // Si no ha iniciado el turno
     if(!datos.turnoIniciado){
 
         if(datos.jugadorActivo === jugadorNumero){
+
             carta.textContent = "Pulsa INICIAR TURNO";
+
+            boton.style.display = "block";
+
         }else{
+
             carta.textContent = "Esperando turno";
+
+            boton.style.display = "none";
+
         }
 
+
         return;
+
     }
 
+
     // Turno iniciado
+
+    boton.style.display = "none";
+
+
     if(datos.jugadorActivo === jugadorNumero){
-        carta.textContent = datos.cartaActual;
+
+        carta.textContent =
+            datos.cartaActual || "Esperando carta";
+
     }else{
-        carta.textContent = "Esperando turno";
+
+        carta.textContent =
+            "Esperando turno";
+
     }
 
 }
