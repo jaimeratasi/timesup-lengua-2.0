@@ -299,32 +299,39 @@ function mostrarCarta(datos){
 async function iniciarJuego(){
 
     console.log("INICIO JUEGO PULSADO");
-    console.log("partidaId:", partidaId);
-
+    
     const ref = doc(db,"partidas",partidaId);
 
     const snap = await getDoc(ref);
 
-    console.log("Existe partida:", snap.exists());
-
-    if(!snap.exists()) return;
+    if(!snap.exists()){
+        console.log("No existe partida");
+        return;
+    }
 
     const datos = snap.data();
 
     console.log("Datos antes:", datos);
 
+
     await updateDoc(ref,{
-        estado: "jugando",
-        cartaActual: datos.cartas[0] || null,
-        tiempo: 60,
-        jugadorActivo: 0,
-        turnoIniciado: false
+
+        estado:"jugando",
+
+        cartaActual: datos.cartas[0],
+
+        tiempo:60,
+
+        jugadorActivo:0,
+
+        turnoIniciado:false
+
     });
 
-    console.log("PARTIDA INICIADA");
+
+    console.log("UPDATE HECHO");
 
 }
-
 
 // ==========================
 // CODIGO
