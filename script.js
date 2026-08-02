@@ -196,11 +196,9 @@ function escucharPartida(){
 
     console.log("Escuchando partida:", partidaId);
 
-
     onSnapshot(
         doc(db,"partidas",partidaId),
         (snap)=>{
-
 
             if(!snap.exists()){
 
@@ -210,36 +208,35 @@ function escucharPartida(){
 
             }
 
-
-            const datos=snap.data();
-
+            const datos = snap.data();
 
             console.log("Cambio recibido:", datos);
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
+            if(datos.estado === "jugando"){
 
+                pantalla("playScreen");
 
-           if(datos.estado==="jugando"){
+                mostrarCarta(datos);
 
-    pantalla("playScreen");
+                document.getElementById("timer").textContent =
+                    datos.tiempo;
 
-    mostrarCarta(datos);
+                document.getElementById("remainingCards").textContent =
+                    "Quedan " + datos.cartas.length + " cartas";
 
-               if(
-    datos.estado === "jugando" &&
-    datos.jugadorActivo === jugadorNumero &&
-    !intervaloTiempo
-){
-    iniciarTemporizador();
-}
+                // Mostrar u ocultar el botón Iniciar turno
+                const boton = document.getElementById("startTurnBtn");
 
-    document.getElementById("timer").textContent = datos.tiempo;
+                if(
+                    datos.jugadorActivo === jugadorNumero &&
+                    !datos.turnoIniciado
+                ){
+                    boton.style.display = "inline-block";
+                }else{
+                    boton.style.display = "none";
+                }
 
-    document.getElementById("remainingCards").textContent =
-        "Quedan " + datos.cartas.length + " cartas";
-
-}
-
+            }
 
         }
     );
