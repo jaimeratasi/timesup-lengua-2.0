@@ -99,13 +99,9 @@ async function crearPartida(){
 
     partidaId = codigo();
 
-
-    const mazoElegido = "figuras"; 
-    // temporalmente usamos figuras para probar
-
+    const mazoElegido = "figuras";
 
     const cartas = [...DECKS[mazoElegido].cartas];
-
 
     await setDoc(
         doc(db,"partidas",partidaId),
@@ -121,7 +117,9 @@ async function crearPartida(){
 
             jugadorActivo:0,
 
-            cartas:cartas,
+            cartas:[...cartas],
+
+            mazoOriginal:[...cartas],
 
             cartaActual:null,
 
@@ -130,20 +128,13 @@ async function crearPartida(){
         }
     );
 
-
     ui.gameCodeBox.textContent = partidaId;
-
 
     escucharPartida();
 
-
     pantalla("lobbyScreen");
 
-
 }
-
-
-
 // ==========================
 // UNIRSE
 // ==========================
