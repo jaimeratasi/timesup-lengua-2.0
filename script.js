@@ -404,21 +404,56 @@ function iniciarTemporizador(){
 
         const datos = snap.data();
 
-        // Se acabó el tiempo
+        // Si ya no soy el jugador activo, dejo de contar
+        if(datos.jugadorActivo !== jugadorNumero){
+            clearInterval(intervaloTiempo);
+            intervaloTiempo = null;
+            return;
+        }
+
+        // ¿Se acabó el mazo?
+        if(datos.cartas.length === 0){
+
+            clearInterval(intervaloTiempo);
+            intervaloTiempo = null;
+
+            // Fin de la partida
+            if(datos.ronda >= 3){
+
+                await updateDoc(ref,{
+                    estado:"fin"
+                });
+
+                return;
+            }
+
+            // Siguiente ronda
+            await updateDoc(ref,{
+                ronda: datos.ronda + 1,
+                cartas: [...datos.mazoOriginal],
+                cartaActual: datos.mazoOriginal[0],
+                tiempo:60,
+                jugadorActivo:0
+            });
+
+            return;
+        }
+
+        // ¿Se acabó el tiempo?
         if(datos.tiempo <= 0){
 
             clearInterval(intervaloTiempo);
+            intervaloTiempo = null;
 
             const siguienteJugador =
                 (datos.jugadorActivo + 1) % datos.jugadores.length;
 
             await updateDoc(ref,{
-    tiempo: 60,
-    jugadorActivo: siguienteJugador
-});
+                tiempo:60,
+                jugadorActivo:siguienteJugador
+            });
 
-// El temporizador sigue para el siguiente jugador
-return;
+            return;
         }
 
         // Sigue contando
