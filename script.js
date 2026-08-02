@@ -404,8 +404,15 @@ function iniciarTemporizador(){
 
         // Si ya no soy el jugador activo, dejo de contar
         if(datos.jugadorActivo !== jugadorNumero){
+
             clearInterval(intervaloTiempo);
             intervaloTiempo = null;
+            return;
+
+        }
+
+        // Si el turno aún no ha empezado, no contar
+        if(!datos.turnoIniciado){
             return;
         }
 
@@ -425,16 +432,18 @@ function iniciarTemporizador(){
                 return;
             }
 
-            // Siguiente ronda
+            // Nueva ronda
             await updateDoc(ref,{
                 ronda: datos.ronda + 1,
-                cartas: [...datos.mazoOriginal],
+                cartas:[...datos.mazoOriginal],
                 cartaActual: datos.mazoOriginal[0],
                 tiempo:60,
-                jugadorActivo:0
+                jugadorActivo:0,
+                turnoIniciado:false
             });
 
             return;
+
         }
 
         // ¿Se acabó el tiempo?
@@ -448,10 +457,12 @@ function iniciarTemporizador(){
 
             await updateDoc(ref,{
                 tiempo:60,
-                jugadorActivo:siguienteJugador
+                jugadorActivo:siguienteJugador,
+                turnoIniciado:false
             });
 
             return;
+
         }
 
         // Sigue contando
