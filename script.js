@@ -123,7 +123,9 @@ async function crearPartida(){
 
             cartaActual:null,
 
-            tiempo:60
+            tiempo:60,
+
+            turnoIniciado:false
 
         }
     );
