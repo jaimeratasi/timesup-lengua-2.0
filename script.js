@@ -285,19 +285,23 @@ function mostrarCarta(datos){
 
 async function iniciarJuego(){
 
-    await updateDoc(
-        doc(db,"partidas",partidaId),
-        {
-            estado:"jugando",
-            cartaActual:"Metáfora",
-            tiempo:60
-        }
-    );
+    const ref = doc(db,"partidas",partidaId);
 
-    iniciarTemporizador();
+    const snap = await getDoc(ref);
+
+    if(!snap.exists()) return;
+
+    const datos = snap.data();
+
+    await updateDoc(ref,{
+        estado: "jugando",
+        cartaActual: datos.cartas[0] || null,
+        tiempo: 60,
+        jugadorActivo: 0,
+        turnoIniciado: false
+    });
 
 }
-
 
 
 // ==========================
