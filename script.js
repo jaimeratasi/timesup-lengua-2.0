@@ -247,35 +247,31 @@ function mostrarCarta(datos){
 
     const carta = document.getElementById("gameCard");
     const contador = document.getElementById("remainingCards");
-
-    // Mostrar carta solo al jugador activo
-    if(datos.jugadorActivo === jugadorNumero){
-
-        carta.textContent =
-            datos.cartaActual || "Esperando carta";
-
-        // Solo el jugador activo controla el temporizador
-        if(!intervaloTiempo){
-            iniciarTemporizador();
-        }
-
-    }else{
-
-        // Los demás solo esperan
-        if(intervaloTiempo){
-            clearInterval(intervaloTiempo);
-            intervaloTiempo = null;
-        }
-
-        carta.textContent = "Esperando turno";
-
-    }
+    const timer = document.getElementById("timer");
 
     contador.textContent =
         "Quedan " + datos.cartas.length + " cartas";
 
-    document.getElementById("timer").textContent =
-        datos.tiempo;
+    timer.textContent = datos.tiempo;
+
+    // No ha comenzado el turno
+    if(!datos.turnoIniciado){
+
+        if(datos.jugadorActivo === jugadorNumero){
+            carta.textContent = "Pulsa INICIAR TURNO";
+        }else{
+            carta.textContent = "Esperando turno";
+        }
+
+        return;
+    }
+
+    // Turno iniciado
+    if(datos.jugadorActivo === jugadorNumero){
+        carta.textContent = datos.cartaActual;
+    }else{
+        carta.textContent = "Esperando turno";
+    }
 
 }
 
